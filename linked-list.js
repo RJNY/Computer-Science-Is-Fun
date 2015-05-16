@@ -23,7 +23,6 @@ var Queue = (function () {
     if(this.head !== null) {
       this.head = this.head.nextNode
     }
-
   };
 
   LinkedList.prototype.view = function() {
