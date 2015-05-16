@@ -1,3 +1,5 @@
+'use strict';
+
 function Node (value) {
   this.value = value
   this.left = null
@@ -18,7 +20,7 @@ BinarySearchTree.prototype = {
     } else {
 
       //traverse the tree
-      current = this._root;
+      var current = this._root;
       while(true){
         // if less than current value
         // go left
@@ -49,7 +51,6 @@ BinarySearchTree.prototype = {
     }
 
   },
-  remove: function (value) {},
   contains: function (value) {
     var found = false,
       current = this._root
@@ -93,7 +94,7 @@ BinarySearchTree.prototype = {
     inOrder(this._root);
   },
   size: function () {
-    count = 0
+    var count = 0
 
     this.traverse(function (node) {
       count++;
@@ -104,18 +105,90 @@ BinarySearchTree.prototype = {
     return this.toArray().toString()
   },
   toArray: function () {
-    result = []
+    var result = []
     this.traverse(function (node) {
       result.push(node.value)
     });
     return result
   },
+  remove: function (value) {
+    var found = false,
+      parent = null,
+      current = this._root,
+      childCount,
+      replacement,
+      replacementParent
+
+    while(!found && current){
+      if (value < current.value) {
+        parent = current
+        current = current.left
+      }
+      else if (value > current.value) {
+        parent = current
+        current = current.right
+      }
+      else {
+        found = true;
+      }
+    }
+
+    if (found) {
+      // count how many children current node has
+      childCount = (current.left !== null ? 1 : 0) + (current.right !== null ? 1 : 0)
+      if (current === this._root) {
+        switch(childCount){
+          // no children
+          case 0:
+            this._root = null
+            break;
+          // one child
+          case 1:
+            this._root = (current.right === null ? current.left : current.right);
+            break;
+          // two children
+          case 2:
+            // replacement = current.right
+            // while(replacement.left){
+            //   console.log('left node exists! ' + replacement.left.value)
+            //   replacementParent = replacement
+            //   replacement = replacement.left
+            // }
+            // if (replacementParent) {
+            //   console.log(replacementParent.value + " exists!");
+            //   // sets parent.left as the replacements previous right if it exists
+            //   replacementParent.left = replacement.right
+            // };
+
+            // // set old _root left and right to new one
+            // replacement.left = this._root.left
+            // replacement.right = this._root.right
+
+            // // completely replace _root with new node
+            // this._root = replacement
+            break;
+        }
+      }
+    }
+  }
 }
 
-tree = new BinarySearchTree
-tree.add(120)
-tree.add(150) // O(log n) time
-tree.add(110)
-tree.add(111)
-tree.add(10)
-// console.log(tree);
+// seed data //
+var buildTree = (function (binaryTree) {
+  var arr = [50,30,20,40,32,34,36,70,60,65,80,75,85]
+  arr.forEach(function (el) {
+    binaryTree.add(el)
+  });
+})
+
+// driver code //
+var tree = new BinarySearchTree
+buildTree(tree);
+console.log(tree.size())
+tree.remove(50)
+console.log(tree.size())
+tree.remove(60)
+tree.remove(65)
+console.log(tree.size())
+console.log(tree.toArray());
+console.log(tree._root.right.left)
