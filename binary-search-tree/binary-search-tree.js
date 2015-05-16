@@ -73,12 +73,43 @@ BinarySearchTree.prototype = {
     }
     //return result
     return found
-
   },
-  traverse: function () {},
-  size: function () {},
-  toString: function () {},
-  toArray: function () {},
+  traverse: function (process) {
+
+    function inOrder (node) {
+      if (node) {
+        if (node.left !== null) {
+          inOrder(node.left);
+        }
+
+        process.call(this, node);
+
+        if (node.right !== null) {
+          inOrder(node.right);
+        }
+      }
+    }
+
+    inOrder(this._root);
+  },
+  size: function () {
+    count = 0
+
+    this.traverse(function (node) {
+      count++;
+    })
+    return count
+  },
+  toString: function () {
+    return this.toArray().toString()
+  },
+  toArray: function () {
+    result = []
+    this.traverse(function (node) {
+      result.push(node.value)
+    });
+    return result
+  },
 }
 
 tree = new BinarySearchTree
@@ -86,7 +117,5 @@ tree.add(120)
 tree.add(150) // O(log n) time
 tree.add(110)
 tree.add(111)
-tree.add(150)
-console.log(tree.contains(9));
-console.log(tree.contains(100));
-console.log(tree);
+tree.add(10)
+// console.log(tree);
