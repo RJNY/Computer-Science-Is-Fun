@@ -148,24 +148,24 @@ BinarySearchTree.prototype = {
             break;
           // two children
           case 2:
-            // replacement = current.right
-            // while(replacement.left){
-            //   console.log('left node exists! ' + replacement.left.value)
-            //   replacementParent = replacement
-            //   replacement = replacement.left
-            // }
-            // if (replacementParent) {
-            //   console.log(replacementParent.value + " exists!");
-            //   // sets parent.left as the replacements previous right if it exists
-            //   replacementParent.left = replacement.right
-            // };
+            replacement = current.right
+            while(replacement.left){
+              console.log('left node exists! ' + replacement.left.value)
+              replacementParent = replacement
+              replacement = replacement.left
+            }
+            if (replacementParent) {
+              console.log(replacementParent.value + " exists!");
+              // sets parent.left as the replacements previous right if it exists
+              replacementParent.left = replacement.right
+            };
 
-            // // set old _root left and right to new one
-            // replacement.left = this._root.left
-            // replacement.right = this._root.right
+            // set old _root left and right to new one
+            replacement.left = this._root.left
+            replacement.right = this._root.right
 
-            // // completely replace _root with new node
-            // this._root = replacement
+            // completely replace _root with new node
+            this._root = replacement
             break;
         }
       }
