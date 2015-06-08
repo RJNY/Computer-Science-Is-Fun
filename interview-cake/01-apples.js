@@ -14,16 +14,10 @@ function get_max_profit (stock_prices) {
     if (i === 0) {
       continue
     };
-    // if current_price less than min_price
-    // set new min_price
     if(stock_prices[i] < min_price){
       min_price = stock_prices[i]
-      //else if current_price greater than min_price
-      //estimate profit
     } else if (stock_prices[i] > min_price){
       profit = stock_prices[i] - min_price
-      //if profit is greater than the current max_profit
-      //set new max_profit
       if (profit > max_profit) {
         max_profit = profit
       }
