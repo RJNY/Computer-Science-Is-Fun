@@ -13,7 +13,6 @@ function get_max_profit (stock_prices) {
   for (var i = 0; i < stock_prices.length; i++) {
     if (i === 0) {
       continue
-      console.log('hi');
     };
     // if current_price less than min_price
     // set new min_price
